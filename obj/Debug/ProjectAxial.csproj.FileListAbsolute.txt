@@ -1,0 +1,5 @@
+C:\Dev\Projects\Axial\bin\ProjectAxial.dll
+C:\Dev\Projects\Axial\bin\ProjectAxial.pdb
+C:\Dev\Projects\Axial\obj\Debug\ProjectAxial.csprojResolveAssemblyReference.cache
+C:\Dev\Projects\Axial\obj\Debug\ProjectAxial.dll
+C:\Dev\Projects\Axial\obj\Debug\ProjectAxial.pdb
