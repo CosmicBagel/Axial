@@ -1,4 +1,5 @@
-﻿class Greeter {
+﻿/// <reference path="Scripts/typings/jquery/jquery.d.ts" />
+class Greeter {
     element: HTMLElement;
     span: HTMLElement;
     timerToken: number;
@@ -21,8 +22,22 @@
 
 }
 
+function toggleNotice(show: boolean) {
+
+    var overlay = $(".overlay");
+    var modal = $(".modal");
+    var options: any = {
+        duration: 400,
+    };
+
+    show ? overlay.fadeIn(options) : overlay.fadeOut(options);
+    show ? modal.fadeIn(options) : modal.fadeOut(options);
+}
+
 window.onload = () => {
     var el = document.getElementById('content');
     var greeter = new Greeter(el);
     greeter.start();
+
+    toggleNotice(true);
 };

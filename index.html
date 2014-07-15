@@ -3,14 +3,47 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>TypeScript HTML App</title>
+    <title>Treefort</title>
     <link rel="stylesheet" href="app.css" type="text/css" />
-    <script src="app.js"></script>
+    <link rel="stylesheet" href="preloader.css" type="text/css" />
 </head>
 <body>
-    <h1>Axial</h1>
-    <h3>Invite only, cool stuff sharing center</h3>
+    <h1>Treefort - The invite only community hub</h1>
+
+    <div>
+        Hold on to your potatos, I'ma loader'n
+        <div id="outer-barG">
+            <div id="front-barG" class="bar-animationG">
+                <div id="barG_1" class="bar-lineG">
+                </div>
+                <div id="barG_2" class="bar-lineG">
+                </div>
+                <div id="barG_3" class="bar-lineG">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay"></div>
+    <div class="modal">
+        <h4>Greetings, test subject!</h4>
+        <ul>
+            <li>Data gets wipe frequently, consider what you post to be temporary.</li>
+            <li>At times the app may not work as intended, or at all.</li>
+            <li>File all issues and complaints in the box at the door,
+                they will then <b>promptly</b> be ignored.
+            </li>
+        </ul>
+        <div class="signature">
+            Cheers,
+            <br />
+            Sam N. W.
+        </div>
+        <button onclick="toggleNotice(false)">Mmmk</button>
+    </div>
 
     <div id="content"></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
