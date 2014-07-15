@@ -23,7 +23,6 @@ class Greeter {
 }
 
 function toggleNotice(show: boolean) {
-
     var overlay = $(".overlay");
     var modal = $(".modal");
     var options: any = {
@@ -39,5 +38,8 @@ window.onload = () => {
     var greeter = new Greeter(el);
     greeter.start();
 
-    toggleNotice(true);
+    if (localStorage.getItem("visited") != "true") {
+        toggleNotice(true);
+        localStorage.setItem("visited", "true");
+    }
 };
