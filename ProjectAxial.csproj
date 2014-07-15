@@ -19,6 +19,7 @@
   <ItemGroup>
     <Content Include="app.css" />
     <Content Include="index.html" />
+    <Content Include="preloader.css" />
     <Content Include="Scripts\typings\angularfire\angularfire.d.ts" />
     <Content Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <Content Include="Scripts\typings\angularjs\angular-cookies.d.ts" />

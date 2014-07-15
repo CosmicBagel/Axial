@@ -1,4 +1,8 @@
-﻿/// <reference path="Scripts/typings/jquery/jquery.d.ts" />
+﻿/// <reference path="Scripts/typings/angularfire/angularfire.d.ts" />
+/// <reference path="Scripts/typings/firebase/firebase.d.ts" />
+/// <reference path="Scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="Scripts/typings/jquery/jquery.d.ts" />
+
 class Greeter {
     element: HTMLElement;
     span: HTMLElement;
@@ -19,7 +23,6 @@ class Greeter {
     stop() {
         clearTimeout(this.timerToken);
     }
-
 }
 
 function toggleNotice(show: boolean) {
