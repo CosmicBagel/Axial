@@ -37,9 +37,9 @@ function toggleNotice(show: boolean) {
 }
 
 window.onload = () => {
-    var el = document.getElementById('content');
-    var greeter = new Greeter(el);
-    greeter.start();
+    //var el = document.getElementById('content');
+    //var greeter = new Greeter(el);
+    //greeter.start();
 
     if (localStorage.getItem("visited") != "true") {
         toggleNotice(true);

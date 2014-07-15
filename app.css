@@ -13,13 +13,14 @@
 
 * {
     margin: 0;
-    padding:0;
+    padding: 0;
 }
 
 body {
     background-color: #F3EFE6;
     color: #32313F;
     font-family: 'Cabin', sans-serif;
+    font-size: 14px;
 }
 
 
@@ -27,6 +28,27 @@ header {
     color: #F06F4F;
     width: 100%;
     height: 128px;
+}
+
+h4 {
+    margin: 10px;
+}
+
+ul {
+    margin-left: 15px;
+}
+
+button {
+    color: #32313F;
+    background-color: #A9C5DA;
+    border: none;
+    width: 64px;
+    height: 32px;
+    border-radius: 5px;
+}
+
+button:hover {
+    border: 2px solid #747371;
 }
 
 #headerContent {
@@ -66,10 +88,10 @@ header {
     left: 50%;
     margin-top: -100px;
     margin-left: -150px;
-    background-color: #ffffff;
+    background-color: #F3EFE6;
     border-radius: 5px;
     text-align: left;
-    padding: 10px;
+    padding: 15px;
     z-index: 11; /* 1px higher than the overlay layer */
     display: none;
 }
@@ -78,4 +100,5 @@ header {
     float: right;
     text-align: right;
     width: 100%;
+    margin-top: 15px
 }
