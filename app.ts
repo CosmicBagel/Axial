@@ -42,7 +42,7 @@ window.onload = () => {
     //greeter.start();
 
     if (localStorage.getItem("visited") != "true") {
-        toggleNotice(true);
         localStorage.setItem("visited", "true");
+        toggleNotice(true);
     }
 };

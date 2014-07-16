@@ -8,8 +8,8 @@
     #747371 Outline, Divider
 */
 
-@import url(http://fonts.googleapis.com/css?family=Amatic+SC);
 @import url(http://fonts.googleapis.com/css?family=Cabin);
+@import url(http://fonts.googleapis.com/css?family=Covered+By+Your+Grace);
 
 * {
     margin: 0;
@@ -38,17 +38,24 @@ ul {
     margin-left: 15px;
 }
 
-button {
+.button {
     color: #32313F;
     background-color: #A9C5DA;
     border: none;
     width: 64px;
     height: 32px;
     border-radius: 5px;
+    text-align: center;
+    float: left;
 }
 
-button:hover {
+.button:hover {
     border: 2px solid #747371;
+}
+
+.button:active {
+    color: #F3EFE6;
+    border-color: #F3EFE6;
 }
 
 #headerContent {
@@ -60,7 +67,8 @@ button:hover {
 
 .logo {
     font-size: 48px;
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Covered By Your Grace', cursive;
+
     font-weight: bold;
     letter-spacing: 3px;
 }
@@ -94,6 +102,7 @@ button:hover {
     padding: 15px;
     z-index: 11; /* 1px higher than the overlay layer */
     display: none;
+
 }
 
 .signature {
