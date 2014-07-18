@@ -32,6 +32,7 @@
     <Content Include="Scripts\typings\firebase\firebase-simplelogin.d.ts" />
     <Content Include="Scripts\typings\firebase\firebase.d.ts" />
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
+    <Content Include="WE-Markdown.css" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="README.md" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

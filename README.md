@@ -1,4 +1,5 @@
-axial
+Treefort
 =====
 
-A place to share things with friends in a small group, built on ASP.net MVC 5
+A place to share things with friends in a small group, built with AngularJS and Firebase.
+
