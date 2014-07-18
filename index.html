@@ -11,23 +11,21 @@
     <header>
         <div id="headerContent">
             <div class="logo">Treefort</div>
-            <div class="sublogo">the paper hat community</div></header>
+            <div class="sublogo">the paper hat community</div>
         </div>
+    </header>
 
-    <div>
-        Hold on to your potatos, I'ma loader'n it
-        <div id="outer-barG">
-            <div id="front-barG" class="bar-animationG">
-                <div id="barG_1" class="bar-lineG">
-                </div>
-                <div id="barG_2" class="bar-lineG">
-                </div>
-                <div id="barG_3" class="bar-lineG">
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Pages -->
+    <section id="frontpage">
+        <h3>Frontpage</h3>
+    </section>
 
+    <section id="CreateAccount">
+        <h3>Create account</h3>
+    </section>
+    <!-- END Pages -->
+
+    <!-- UI Components -->
     <div class="overlay"></div>
     <div class="modal">
         <h4>Greetings, test subject!</h4>
@@ -46,11 +44,25 @@
         <button class="button" onclick="toggleNotice(false)">Mmmk</button>
     </div>
 
-    <div id="content"></div>
+    <div class="loaderBar">
+        Hold on to your potatos, I'ma loader'n it
+        <div id="outer-barG">
+            <div id="front-barG" class="bar-animationG">
+                <div id="barG_1" class="bar-lineG">
+                </div>
+                <div id="barG_2" class="bar-lineG">
+                </div>
+                <div id="barG_3" class="bar-lineG">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END UI Components -->
+
+    <!-- Scripts load up here -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src='//cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
     <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js'></script>
-
     <script src="app.js"></script>
 </body>
 </html>
