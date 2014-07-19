@@ -3,28 +3,6 @@
 /// <reference path="Scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="Scripts/typings/jquery/jquery.d.ts" />
 
-class Greeter {
-    element: HTMLElement;
-    span: HTMLElement;
-    timerToken: number;
-
-    constructor(element: HTMLElement) {
-        this.element = element;
-        this.element.innerHTML += "The time is: ";
-        this.span = document.createElement('span');
-        this.element.appendChild(this.span);
-        this.span.innerText = new Date().toUTCString();
-    }
-
-    start() {
-        this.timerToken = setInterval(() => this.span.innerHTML = new Date().toUTCString(), 500);
-    }
-
-    stop() {
-        clearTimeout(this.timerToken);
-    }
-}
-
 function toggleNotice(show: boolean) {
     var overlay = $(".overlay");
     var modal = $(".modal");
@@ -36,25 +14,7 @@ function toggleNotice(show: boolean) {
     show ? modal.fadeIn(options) : modal.fadeOut(options);
 }
 
-window.onload = () => {
-    //var el = document.getElementById('content');
-    //var greeter = new Greeter(el);
-    //greeter.start();
 
-    if (localStorage.getItem("visited") != "true") {
-        localStorage.setItem("visited", "true");
-        toggleNotice(true);
-    }
-
-
-
-
-
-    //myRootRef.unauth();
-
-    var treefort: Treefort = new Treefort();
-    treefort.Initalize();
-};
 
 class Config {
     static FirebaseUrl: string = 'https://sweltering-fire-219.firebaseio.com/';
@@ -65,80 +25,39 @@ class Config {
 class Treefort {
     fbRoot: Firebase;
     postIO: PostIO;
-    controllers: Controller[];
     sections: JQuery;
 
     Initalize() {
         this.fbRoot = new Firebase(Config.FirebaseUrl);
         this.postIO = new PostIO(this.fbRoot);
         this.sections = $("section");
-        
 
-
-        // start controller for home page
-        // 
         this.DisplayFrontpage();
-    }
-
-    //switch view to new controller (pass in type of controller)
-    SwitchView(controller: Controller) {
-        //fade out current sections
-        this.sections.fadeOut();
     }
 
     DisplayFrontpage() {
         var frontpage: HTMLElement = this.sections.filter("#frontpage")[0];
         
         this.postIO.ReadPostsByCount(20, posts => {
-            var frontpageHtml:string = "<ul>";
+            var frontpageHtml: string = "<ul>";
+            posts.reverse();
             posts.forEach( p => {
-                frontpageHtml += "<li>" + p.Content + "</li>";
+                frontpageHtml +=
+                "<li>" +
+                    "<ul>" +
+                        "<li>Id: " + p.Id + "</li>" +
+                        "<li>AuthorId: " + p.AuthorId + "</li>" +
+                        "<li>Content: " + p.Content + "</li>" +
+                    "</ul>"+
+                "</li>";
             });
             frontpageHtml += "</ul>";
 
             frontpage.innerHTML += frontpageHtml;
             $(frontpage).fadeIn();
         });
-    }
 
-    //fbRoot
-
-    //UserAuth
-
-    //
-
-    //Post
-    //User
-    // 
-
-    //CRUD for posts
-    //PostStreamIO
-
-    //Data models
-
-    //posts
-    //id
-    //content
-    //authorId
-
-    //users
-    //id
-    //FirstName
-    //LastName
-    //DateJoined
-}
-
-
-
-class Controller {
-
-
-
-}
-
-class FrontPage extends Controller {
-    Root() {
-
+        //this.postIO.CreatePost({ Content: "I just made this hot and juicy post", AuthorId: 5, Id: "zzz" });
     }
 }
 
@@ -149,24 +68,22 @@ class PostIO {
         this.postsRoot = fbRoot.child("posts");
     }
 
-    //returns id of created post
-    CreatePost(post: Post): number {
-        //this.fbRoot.set({
-        //    content: "<a href='http://paperhatstudios.com'>First post!</a>",
-        //    date: new Date().toUTCString()
-        //});
+    //returns string id of created post
+    CreatePost(content: string, author: User): string {
+        var hotAndFreshId:string = "fjdfhjdk";
+        this.postsRoot.push({ Content: content, AuthorId: author.Id });
 
-        return 0;
+        return hotAndFreshId;
     }
 
     ReadPostsByCount(numberOfPosts: number, callback: (posts: Post[]) => any){
-        var postQuery = this.postsRoot.limit(numberOfPosts);
+        var postQuery = this.postsRoot. limit(numberOfPosts); 
         
         postQuery.once("value", (dataSnapshot: IFirebaseDataSnapshot) => { 
             var posts: Post[] = [];
-            dataSnapshot.forEach(p => {
+            dataSnapshot.forEach (p => {
                 posts.push({
-                    Id: -1,
+                    Id: p.name(),
                     Content: p.child("Content").val(),
                     AuthorId: p.child("AuthorId").val()
                 });
@@ -179,33 +96,33 @@ class PostIO {
     }
 
     ReadPostById(id: string): Post {
-        //this.fbRoot.child('content').on(
-        //    'value',
-        //    (snapshot) => alert(snapshot.val())
-        //);
-
-        return { Id: -1, Content: "BAD READ", AuthorId: -1 };
+        return { Id: "zzz", Content: "BAD READ", AuthorId: -1 };
     }
 
-    UpdatePostById(post: Post) {
+    UpdatePostById(post: Post) {}
 
-    }
-
-    DeletePostById(post: Post) {
-
-    }
-
+    DeletePostById(post: Post) {}
 }
 
 class User {
-    Id: number;
+    Id: string;
     FirstName: string;
     LastName: string;
     DateJoined: Date;
 }
 
 class Post {
-    public Id: number;
+    Id: string;
     Content: string;
     AuthorId: number;
 }
+
+window.onload = () => {
+    if (localStorage.getItem("visited") != "true") {
+        localStorage.setItem("visited", "true");
+        toggleNotice(true);
+    }
+
+    var treefort: Treefort = new Treefort();
+    treefort.Initalize();
+};
