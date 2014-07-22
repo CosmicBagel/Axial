@@ -14,8 +14,6 @@ function toggleNotice(show: boolean) {
     show ? modal.fadeIn(options) : modal.fadeOut(options);
 }
 
-
-
 class Config {
     static FirebaseUrl: string = 'https://sweltering-fire-219.firebaseio.com/';
 }
@@ -25,11 +23,13 @@ class Config {
 class Treefort {
     fbRoot: Firebase;
     postIO: PostIO;
+    postUI: PostUI;
     sections: JQuery;
 
     Initalize() {
         this.fbRoot = new Firebase(Config.FirebaseUrl);
         this.postIO = new PostIO(this.fbRoot);
+        this.postUI = new PostUI(this.postIO);
         this.sections = $("section");
 
         this.DisplayFrontpage();
@@ -39,15 +39,16 @@ class Treefort {
         var frontpage: HTMLElement = this.sections.filter("#frontpage")[0];
         
         this.postIO.ReadPostsByCount(20, posts => {
-            var frontpageHtml: string = "<ul>";
+            var frontpageHtml: string = "<ul id='postList'>";
             posts.reverse();
             posts.forEach( p => {
                 frontpageHtml +=
                 "<li>" +
-                    "<ul>" +
+                "<ul data-postid=\"" + p.Id + "\">" +
                         "<li>Id: " + p.Id + "</li>" +
                         "<li>AuthorId: " + p.AuthorId + "</li>" +
                         "<li>Content: " + p.Content + "</li>" +
+                        "<button onclick = 'treefort.postUI.DeletePost(\"" + p.Id + "\")'>Delete</button >" +
                     "</ul>"+
                 "</li>";
             });
@@ -56,8 +57,53 @@ class Treefort {
             frontpage.innerHTML += frontpageHtml;
             $(frontpage).fadeIn();
         });
+    }
+}
 
-        //this.postIO.CreatePost({ Content: "I just made this hot and juicy post", AuthorId: 5, Id: "zzz" });
+class PostUI {
+    postIO: PostIO;
+
+    constructor(postIO: PostIO) {
+        this.postIO = postIO;
+    }
+
+    DeletePost(id: string) {
+        console.log("postUI: deleting post");
+        this.postIO.DeletePostById(id, (error: any)=> {
+            if (error != null) {
+                console.error("Post deletion error: " + error);
+            } else {
+                var postToRemove = $("ul[data-postid='" + id + "']").parent();
+                postToRemove.fadeOut("200", () => {
+                    postToRemove.remove();
+                });
+            }
+        });
+    }
+
+    CreatePost() {
+        var content = $("textarea[name='newPost']").val();
+        console.log("creating post: " + content);
+        var newId = this.postIO.CreatePost(content,
+            { Id: "5", DateJoined: new Date("1991"), FirstName: "sam", LastName: "whiteley" },
+            (error: any) => {
+                this.DisplayPost(error, newId, content, "5");
+            });
+    }
+
+    DisplayPost(error: any, id: string, content: string, authorId: string)
+    {
+        console.log("displaying post...");
+        var postlist = $("ul[id='postList']").prepend(
+            "<li>" +
+                "<ul data-postid=\"" + id + "\">" +
+                    "<li>Id: " + id + "</li>" +
+                    "<li>AuthorId: " + authorId + "</li>" +
+                    "<li>Content: " + content + "</li>" +
+                    "<button onclick = 'treefort.postUI.DeletePost(\"" + id + "\")'>Delete</button >" +
+                "</ul>" +
+            "</li>"
+        );
     }
 }
 
@@ -69,9 +115,10 @@ class PostIO {
     }
 
     //returns string id of created post
-    CreatePost(content: string, author: User): string {
-        var hotAndFreshId:string = "fjdfhjdk";
-        this.postsRoot.push({ Content: content, AuthorId: author.Id });
+    CreatePost(content: string, author: User, callback: (error:any) => void): string {
+        var newPost = this.postsRoot.push({ Content: content, AuthorId: author.Id }, callback );
+
+        var hotAndFreshId: string = newPost.name();
 
         return hotAndFreshId;
     }
@@ -99,9 +146,13 @@ class PostIO {
         return { Id: "zzz", Content: "BAD READ", AuthorId: -1 };
     }
 
-    UpdatePostById(post: Post) {}
+    UpdatePostById(post: Post) {
+        console.log("post updated");
+    }
 
-    DeletePostById(post: Post) {}
+    DeletePostById(id: string, callback: (error: any) => void) {
+        this.postsRoot.child(id).remove(callback);
+    }
 }
 
 class User {
@@ -117,12 +168,13 @@ class Post {
     AuthorId: number;
 }
 
+var treefort : Treefort;
 window.onload = () => {
     if (localStorage.getItem("visited") != "true") {
         localStorage.setItem("visited", "true");
         toggleNotice(true);
     }
 
-    var treefort: Treefort = new Treefort();
+    treefort = new Treefort();
     treefort.Initalize();
 };
