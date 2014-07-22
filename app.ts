@@ -82,12 +82,15 @@ class PostUI {
     }
 
     CreatePost() {
-        var content = $("textarea[name='newPost']").val();
+        var textarea = $("textarea[name='newPost']") 
+        var content = textarea.val();
+
         console.log("creating post: " + content);
         var newId = this.postIO.CreatePost(content,
             { Id: "5", DateJoined: new Date("1991"), FirstName: "sam", LastName: "whiteley" },
             (error: any) => {
                 this.DisplayPost(error, newId, content, "5");
+                textarea.val("");
             });
     }
 
