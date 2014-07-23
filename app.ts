@@ -36,25 +36,12 @@ class Treefort {
     }
 
     DisplayFrontpage() {
-        var frontpage: HTMLElement = this.sections.filter("#frontpage")[0];
-        
         this.postIO.ReadPostsByCount(20, posts => {
-            var frontpageHtml: string = "<ul id='postList'>";
-            posts.reverse();
-            posts.forEach( p => {
-                frontpageHtml +=
-                "<li>" +
-                "<ul data-postid=\"" + p.Id + "\">" +
-                        "<li>Id: " + p.Id + "</li>" +
-                        "<li>AuthorId: " + p.AuthorId + "</li>" +
-                        "<li>Content: " + p.Content + "</li>" +
-                        "<button onclick = 'treefort.postUI.DeletePost(\"" + p.Id + "\")'>Delete</button >" +
-                    "</ul>"+
-                "</li>";
+            var frontpage: JQuery = $("section#frontpage");
+            posts.forEach(p => {
+                this.postUI.DisplayPost(null, p.Id, p.Content, p.AuthorId);
             });
-            frontpageHtml += "</ul>";
 
-            frontpage.innerHTML += frontpageHtml;
             $(frontpage).fadeIn();
         });
     }
@@ -92,6 +79,14 @@ class PostUI {
                 this.DisplayPost(error, newId, content, "5");
                 textarea.val("");
             });
+    }
+
+    StartPostEdit(id: string) {
+
+    }
+
+    FinishPostEdit(id: string, updatedContent: string) {
+
     }
 
     DisplayPost(error: any, id: string, content: string, authorId: string)
@@ -168,7 +163,7 @@ class User {
 class Post {
     Id: string;
     Content: string;
-    AuthorId: number;
+    AuthorId: string;
 }
 
 var treefort : Treefort;
