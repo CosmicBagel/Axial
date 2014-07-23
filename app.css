@@ -55,37 +55,38 @@ section {
 
 #frontpage {
     width: 400px;
-    margin-left:auto;
-    margin-right:auto;
-
+    margin-left: auto;
+    margin-right: auto;
     //background-color: #fff;
-
     padding: 30px;
 }
 
-#frontpage img {
-    max-width: 256px;
-}
+    #frontpage img {
+        max-width: 256px;
+    }
 
-#frontpage h3 {
-    margin-bottom:15px;
-}
+    #frontpage h3 {
+        margin-bottom: 15px;
+    }
 
-#frontpage ul {
-    list-style-type: none;
-}
+    #frontpage ul {
+        list-style-type: none;
+    }
 
-#frontpage li {
-    border: 3px solid #747371;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    padding:5px;
+    #frontpage li {
+        border: 3px solid #747371;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+
+#postList textarea.editTextBox {
+    display: none;
 }
 
 .logo {
     font-size: 48px;
     font-family: 'Covered By Your Grace', cursive;
-
     font-weight: bold;
     letter-spacing: 3px;
 }
@@ -119,7 +120,6 @@ section {
     padding: 15px;
     z-index: 11; /* 1px higher than the overlay layer */
     display: none;
-
 }
 
 .button {
@@ -133,20 +133,20 @@ section {
     float: left;
 }
 
-.button:hover {
-    border: 2px solid #747371;
-}
+    .button:hover {
+        border: 2px solid #747371;
+    }
 
-.button:active {
-    color: #F3EFE6;
-    border-color: #F3EFE6;
-}
+    .button:active {
+        color: #F3EFE6;
+        border-color: #F3EFE6;
+    }
 
 .signature {
     float: right;
     text-align: right;
     width: 100%;
-    margin-top: 15px
+    margin-top: 15px;
 }
 
 .loaderBar {

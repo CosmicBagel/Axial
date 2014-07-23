@@ -60,10 +60,7 @@ class PostUI {
             if (error != null) {
                 console.error("Post deletion error: " + error);
             } else {
-                var postToRemove = $("ul[data-postid='" + id + "']").parent();
-                postToRemove.fadeOut("200", () => {
-                    postToRemove.remove();
-                });
+                this.RemovePostFromHTML(id);
             }
         });
     }
@@ -82,26 +79,65 @@ class PostUI {
     }
 
     StartPostEdit(id: string) {
+        console.log("starting post edit");
+        var editButton: JQuery = $("ul[data-postid='" + id + "'] .editButton");
+        var deleteButton: JQuery = $("ul[data-postid='" + id + "'] .deleteButton");
+        var editTextBox: JQuery = $("ul[data-postid='" + id + "'] .editTextBox");
+        var content: JQuery = $("ul[data-postid='" + id + "'] .content");
 
+        editTextBox.val(content.text().substr(9));
+        editTextBox.fadeIn();
+        deleteButton.fadeOut();
+        content.fadeOut();
+        
+        editButton.text("Finish");
+        editButton.attr("onclick","treefort.postUI.FinishPostEdit('" + id + "')" );
     }
 
-    FinishPostEdit(id: string, updatedContent: string) {
+    FinishPostEdit(id: string) : any {
+        console.log("Finish post edit");
 
+        var editButton: JQuery = $("ul[data-postid='" + id + "'] .editButton");
+        var deleteButton: JQuery = $("ul[data-postid='" + id + "'] .deleteButton");
+        var editTextBox: JQuery = $("ul[data-postid='" + id + "'] .editTextBox");
+        var content: JQuery = $("ul[data-postid='" + id + "'] .content");
+
+        editTextBox.prop("disabled", true);
+        editButton.prop("disabled", true);
+        this.postIO.UpdatePostById(id, editTextBox.val(), () => {
+            content.text("Content: " + editTextBox.val());
+            editTextBox.fadeOut();
+            deleteButton.fadeIn();
+            content.fadeIn();
+            editTextBox.prop("disabled", false);
+            editButton.prop("disabled", false);
+
+            editButton.text("Edit");
+            editButton.attr("onclick", "treefort.postUI.StartPostEdit('" + id + "')");
+        });
     }
 
     DisplayPost(error: any, id: string, content: string, authorId: string)
     {
-        console.log("displaying post...");
         var postlist = $("ul[id='postList']").prepend(
             "<li>" +
                 "<ul data-postid=\"" + id + "\">" +
                     "<li>Id: " + id + "</li>" +
                     "<li>AuthorId: " + authorId + "</li>" +
-                    "<li>Content: " + content + "</li>" +
-                    "<button onclick = 'treefort.postUI.DeletePost(\"" + id + "\")'>Delete</button >" +
+                    "<li class='content'>Content: " + content + "</li>" +
+                "<textarea class='editTextBox' name = \"editPost\" cols = \"36\" rows = \"8\" ></textarea >" +
+                "<button class='deleteButton' onclick = 'treefort.postUI.DeletePost(\"" + id + "\")' > Delete </button > " +
+                "<button class='editButton' onclick = 'treefort.postUI.StartPostEdit(\"" + id + "\")'>Edit</button >" +
                 "</ul>" +
             "</li>"
         );
+    }
+
+    RemovePostFromHTML(id: string) {
+        var postToRemove = $("ul[data-postid='" + id + "']").parent();
+        postToRemove.fadeOut("200", () => {
+            postToRemove.remove();
+        });
     }
 }
 
@@ -141,11 +177,12 @@ class PostIO {
     }
 
     ReadPostById(id: string): Post {
-        return { Id: "zzz", Content: "BAD READ", AuthorId: -1 };
+        return { Id: "zzz", Content: "BAD READ", AuthorId: "Unknown" };
     }
 
-    UpdatePostById(post: Post) {
+    UpdatePostById(id: string, content: string, callback: () => void) {
         console.log("post updated");
+        this.postsRoot.child(id + "/Content").set(content, callback);
     }
 
     DeletePostById(id: string, callback: (error: any) => void) {
