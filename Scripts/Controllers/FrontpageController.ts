@@ -1,10 +1,22 @@
 ﻿/// <reference path="../typings/_all.ts" />
 
 module Treefort {
-    var app = angular.module("Treefort");
-    class FrontpageController {
+    'use strict';
 
+    export class FrontpageController {
+        public injection(): any[] {
+            return [
+                "$scope",
+                "PostIO",
+                FrontpageController
+            ]
+        }
+
+        constructor(
+            private $scope: ITreefortScope,
+            private postIO: PostIO
+        ) {
+            
+        }
     }
-
-    app.controller("FrontpageController", FrontpageController);
 }

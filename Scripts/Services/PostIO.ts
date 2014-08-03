@@ -1,10 +1,15 @@
 ﻿/// <reference path="../typings/_all.ts" />
 
 module Treefort {
-    class PostIO {
+    'use strict';
+    export class PostIO {
+        public injection(): any[] {
+            return [
+                "$firebase",
+                PostIO
+            ]
+        }
 
+        constructor(private $firebase: AngularFire) { }
     }
-
-    var ngModule = angular.module("githubViewer");
-    ngModule.factory("PostIO", ["$firebase", PostIO]);
 } 

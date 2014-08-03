@@ -18,6 +18,9 @@
   </PropertyGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\typings\_all.ts" />
+    <TypeScriptCompile Include="Scripts\Interfaces\ITreefortScope.ts" />
+    <TypeScriptCompile Include="Scripts\Models\Post.ts" />
+    <TypeScriptCompile Include="Scripts\Models\User.ts" />
     <Content Include="Styles\app.css" />
     <TypeScriptCompile Include="Scripts\app.ts" />
     <Content Include="index.html" />
