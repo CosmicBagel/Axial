@@ -1,7 +1,28 @@
 ﻿<section id="frontpage">
   <h3>Frontpage</h3>
-  <textarea name="newPost" cols="48" rows="3"></textarea>
-  <button onclick="TreeFort.treefort.postUI.CreatePost()">Publish</button>
-  <ul id="postList"></ul>
+  <div ng-include="'Views/LoaderBar.html'" ng-hide="posts"></div>
 
+  <div ng-show="posts">
+    <textarea name="newPost" cols="48" rows="3"></textarea>
+    <button onclick="TreeFort.treefort.postUI.CreatePost()">Publish</button>
+
+    <ul id="postList">
+      <li ng-repeat="post in posts">
+        <ul data-post-id="{{post.id}}">
+          <li>Id: {{post.id}}</li>
+          <li>AuthorId: {{post.authorId}}</li>
+          <li class="content">Content: {{post.content}}</li>
+          <textarea class="editTextBox" name="editPost" cols="36" rows="8"></textarea>
+          <button
+            class="deleteButton"
+            onclick="TreeFort.treefort.postUI.DeletePost({{post.id}})">
+            Delete</button>
+          <button
+            class="editButton"
+            onclick="TreeFort.treefort.postUI.StartPostEdit({{post.id}})">
+            Edit</button>
+        </ul>
+      </li>
+    </ul>
+  </div>
 </section>
