@@ -1,9 +1,6 @@
-﻿/// <reference path="Scripts/typings/angularfire/angularfire.d.ts" />
-/// <reference path="Scripts/typings/firebase/firebase.d.ts" />
-/// <reference path="Scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="Scripts/typings/jquery/jquery.d.ts" />
+﻿/// <reference path="typings/_all.ts" />
 
-module TreeFort {
+module Treefort_Old {
     function toggleNotice(show: boolean) {
         var overlay = $(".overlay");
         var modal = $(".modal");
