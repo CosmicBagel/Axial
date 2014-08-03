@@ -41,10 +41,8 @@ ul {
 }
 
 section {
-    display: none;
+    
 }
-
-
 
 #headerContent {
     text-align: center;
@@ -57,7 +55,7 @@ section {
     width: 400px;
     margin-left: auto;
     margin-right: auto;
-    //background-color: #fff;
+    
     padding: 30px;
 }
 

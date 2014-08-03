@@ -4,70 +4,26 @@
 <head>
     <meta charset="utf-8" />
     <title>Treefort</title>
-    <link rel="stylesheet" href="app.css" type="text/css" />
-    <link rel="stylesheet" href="preloader.css" type="text/css" />
+    <link rel="stylesheet" href="styles/app.css" type="text/css" />
+    <link rel="stylesheet" href="styles/preloader.css" type="text/css" />
 </head>
-<body>
+<body ng-app="Treefort">
     <header>
         <div id="headerContent">
             <div class="logo">Treefort</div>
             <div class="sublogo">the paper hat community</div>
         </div>
     </header>
-
-    <!-- Pages -->
-    <section id="frontpage">
-        <h3>Frontpage</h3>
-        <textarea name="newPost" cols="48" rows="3"></textarea>
-        <button onclick="treefort.postUI.CreatePost()">Publish</button>
-        <ul id="postList"></ul>
-
-    </section>
-
-    <section id="CreateAccount">
-        <h3>Create account</h3>
-    </section>
-    <!-- END Pages -->
-
-    <!-- UI Components -->
-    <div class="overlay"></div>
-    <div class="modal">
-        <h4>Greetings, test subject!</h4>
-        <ul>
-            <li>Data gets wipe frequently, consider what you post to be temporary.</li>
-            <li>At times the app may not work as intended, or at all.</li>
-            <li>File all issues and complaints in the box at the door,
-                they will then <b>promptly</b> be ignored.
-            </li>
-        </ul>
-        
-        <div class="signature">
-            Cheers,
-            <br />
-            Sam N. W.
-        </div>
-        <button class="button" onclick="toggleNotice(false)">Mmmk</button>
-    </div>
-
-    <div class="loaderBar">
-        Hold on to your potatos, I'ma loader'n it
-        <div id="outer-barG">
-            <div id="front-barG" class="bar-animationG">
-                <div id="barG_1" class="bar-lineG">
-                </div>
-                <div id="barG_2" class="bar-lineG">
-                </div>
-                <div id="barG_3" class="bar-lineG">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END UI Components -->
+  <!-- Angular view -->
+  <div ng-view></div>
 
     <!-- Scripts load up here -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src='//cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
     <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js'></script>
-    <script src="app.js"></script>
+    <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular-route.min.js'></script>
+    <script src='//cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+    <script src="//cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+    <script src="Scripts/app.js"></script>
+    <script src="Scripts/Controllers/FrontpageController.js"></script>
 </body>
 </html>
