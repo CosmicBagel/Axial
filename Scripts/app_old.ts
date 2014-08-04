@@ -65,7 +65,7 @@ module Treefort_Old {
 
         CreatePost() {
             var textarea = $("textarea[name='newPost']")
-        var content = textarea.val();
+            var content = textarea.val();
 
             console.log("creating post: " + content);
             var newId = this.postIO.CreatePost(content,
