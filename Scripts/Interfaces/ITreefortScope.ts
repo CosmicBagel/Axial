@@ -7,5 +7,6 @@
         newPostContent: string;
 
         publish: Function;
+        publishing: boolean;
     }
 }

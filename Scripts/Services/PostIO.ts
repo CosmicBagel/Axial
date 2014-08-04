@@ -49,17 +49,35 @@ module Treefort {
                         this.$rootScope.$digest();
                     });
             }
-            catch (Error) {
-                onFailure(Error);
+            catch (error) {
+                onFailure(error);
                 this.$rootScope.$digest();
             }
         }
 
-        createPost(post: Post, onComplete: (error: any) => void): string {
-            var createdPost = this.postsRoot.push(
-                { Content: post.Content, AuthorID: post.AuthorId }, onComplete);
-
-            return createdPost.name();
+        createPost(post: Post, onComplete: (post: Post, error: any) => void): void {
+            try {
+                var createdPost = this.postsRoot.push(
+                    { Content: post.Content, AuthorID: post.AuthorId },
+                    (e) => { 
+                        if (createdPost != null) {
+                            onComplete(
+                                {
+                                    Id: createdPost.name(),
+                                    Content: this.$sce.trustAsHtml(post.Content),
+                                    AuthorId: post.AuthorId
+                                }, e);
+                            this.$rootScope.$digest();
+                        }
+                        else
+                            throw "Post failed to create " + e;
+                    });
+            }
+            catch (error)
+            {
+                onComplete(null, error);
+                this.$rootScope.$digest();
+            }
         }
     }
 } 

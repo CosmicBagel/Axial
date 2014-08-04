@@ -4,15 +4,18 @@
   <div id="error" ng-show="error">{{error}}</div>
 
   <div ng-show="posts">
-    <form name="publishPost" ng-submit="publish(newPostContent)">
+    <form 
+      name="publishPost"
+      ng-submit="publish(newPostContent)">
       <textarea
         name="newPost"
         cols="48" rows="3"
         placeholder="Write a new post"
         ng-model="newPostContent"
+        ng-disabled="publishing"
         required>
       </textarea>
-      <input type="submit" value="Publish" />
+      <input type="submit" value="Publish" ng-disabled="publishing" />
     </form>
 
     <section id="postList">

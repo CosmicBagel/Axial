@@ -15,22 +15,33 @@ module Treefort {
 
         constructor(private $scope: ITreefortScope, private PostIO: PostIO) {
             //wire up functions to be called from view
-            $scope.publish = this.publish;
+            $scope.publish = (c) => this.publish(c);
+            //anon functions fix scoping issues 
+            //eg. this.PostIO is undefined because function is being called from the class closure
+
+            $scope.publishing = false;
 
             PostIO.getPosts(20,
                 (p) => this.onPosts(p), () => this.onError());
         }
 
         publish(content: string): void {
-            this.PostIO.createPost(new Post("", content, "5"), this.onPublished);
+            this.$scope.publishing = true;
+
+            this.PostIO.createPost(
+                { Id: "", Content: content, AuthorId: "5" },
+                (p, e) => this.onPublished(p, e));
         }
 
-        onPublished(error?: any) {
+        onPublished(post?: Post, error?: any) {
+            this.$scope.publishing = false;
+            this.$scope.newPostContent = "";
+
+            if (post)
+                this.$scope.posts.unshift(post);
+
             if (error)
                 this.onError(error);
-            else
-                this.PostIO.getPosts(20,
-                    (p) => this.onPosts(p), () => this.onError());
         }
 
         onPosts(posts: Post[]) : void {
