@@ -4,27 +4,38 @@
   <div id="error" ng-show="error">{{error}}</div>
 
   <div ng-show="posts">
-    <textarea name="newPost" cols="48" rows="3"></textarea>
-    <button onclick="TreeFort.treefort.postUI.CreatePost()">Publish</button>
+    <form name="publishPost" ng-submit="publish(newPostContent)">
+      <textarea
+        name="newPost"
+        cols="48" rows="3"
+        placeholder="Write a new post"
+        ng-model="newPostContent"
+        required>
+      </textarea>
+      <input type="submit" value="Publish" />
+    </form>
 
-    <ul id="postList">
-      <li ng-repeat="post in posts">
-        <ul data-post-id="{{post.Id}}">
-          <li>Id: {{post.Id}}</li>
-          <li>AuthorId: {{post.AuthorId}}</li>
-          <!-- angular will escape any html characters that go through {{ }} -->
-          <li class="content">Content: <span ng-bind-html="post.Content"></span></li>
+    <section id="postList">
+      <div class="post" ng-repeat="post in posts">
+        <div data-post-id="{{post.Id}}">
+          <ul>
+            <li>Id: {{post.Id}}</li>
+            <li>AuthorId: {{post.AuthorId}}</li>
+            <!-- angular will escape any html characters that go through {{ }} 
+            using ng-bind-html instead -->
+            <li class="content">Content: <span ng-bind-html="post.Content"></span></li>
+          </ul>
           <textarea class="editTextBox" name="editPost" cols="36" rows="8"></textarea>
           <button
             class="deleteButton"
-            onclick="TreeFort.treefort.postUI.DeletePost({{post.id}})">
+            ng-click="deletePost(post.id)">
             Delete</button>
           <button
             class="editButton"
-            onclick="TreeFort.treefort.postUI.StartPostEdit({{post.id}})">
+            ng-click="startPostEdit(post.id)">
             Edit</button>
-        </ul>
-      </li>
-    </ul>
+        </div>
+      </div>
+    </section>
   </div>
 </section>

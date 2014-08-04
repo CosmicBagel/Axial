@@ -54,5 +54,12 @@ module Treefort {
                 this.$rootScope.$digest();
             }
         }
+
+        createPost(post: Post, onComplete: (error: any) => void): string {
+            var createdPost = this.postsRoot.push(
+                { Content: post.Content, AuthorID: post.AuthorId }, onComplete);
+
+            return createdPost.name();
+        }
     }
 } 
