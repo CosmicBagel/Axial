@@ -21,12 +21,13 @@ module Treefort {
             this.postsRoot = this.fbRoot.child("posts");
         }
 
-        getPosts( maxCount: number, onSucess: (posts: Post[]) => void, onFailure: (Error?: any) => void) {
+        getPosts(maxCount: number, onSucess: (posts: Post[]) => void, onFailure: (Error?: any) => void) {
             var postsQuery = this.postsRoot.limit(maxCount);
 
             //we'll preapare the data instead of just passing the dataSnapshot back
-            postsQuery.once("value", (dataSnapshot: IFirebaseDataSnapshot) => {
-                try {
+            try {
+                postsQuery.once("value", (dataSnapshot: IFirebaseDataSnapshot) => {
+
                     var posts: Post[] = [];
                     dataSnapshot.forEach(p => {
                         posts.push({
@@ -36,22 +37,22 @@ module Treefort {
                         });
                         return false;
                     });
-                    
-                }
-                catch (Error)
-                {
-                    onFailure(Error);
-                    this.$rootScope.$digest();
-                }
 
-                //triggering digest since scope will be updated 
-                //by the controller using this service
-                onSucess(posts);
+
+
+                    //triggering digest since scope will be updated 
+                    //by the controller using this service
+                    onSucess(posts);
+                    this.$rootScope.$digest();
+                }, () => {
+                        onFailure();
+                        this.$rootScope.$digest();
+                    });
+            }
+            catch (Error) {
+                onFailure(Error);
                 this.$rootScope.$digest();
-            }, () => {
-                onFailure();
-                this.$rootScope.$digest();
-            });
+            }
         }
     }
 } 
