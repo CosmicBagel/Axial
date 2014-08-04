@@ -82,6 +82,16 @@ section {
     display: none;
 }
 
+#error {
+ width: 100%;
+ height: 32px;
+ background-color: orange;
+ border: 1px solid red;
+ color: #32313F;
+ text-align: center;
+ line-height: 32px;
+}
+
 .logo {
     font-size: 48px;
     font-family: 'Covered By Your Grace', cursive;
