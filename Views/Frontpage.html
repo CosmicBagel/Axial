@@ -1,6 +1,7 @@
 ﻿<section id="frontpage">
   <h3>Frontpage</h3>
-  <div ng-include="'Views/LoaderBar.html'" ng-hide="posts"></div>
+  <div ng-include="'Views/LoaderBar.html'" ng-hide="posts || error"></div>
+  <div id="error" ng-show="error">{{error}}</div>
 
   <div ng-show="posts">
     <textarea name="newPost" cols="48" rows="3"></textarea>
@@ -8,10 +9,11 @@
 
     <ul id="postList">
       <li ng-repeat="post in posts">
-        <ul data-post-id="{{post.id}}">
-          <li>Id: {{post.id}}</li>
-          <li>AuthorId: {{post.authorId}}</li>
-          <li class="content">Content: {{post.content}}</li>
+        <ul data-post-id="{{post.Id}}">
+          <li>Id: {{post.Id}}</li>
+          <li>AuthorId: {{post.AuthorId}}</li>
+          <!-- angular will escape any html characters that go through {{ }} -->
+          <li class="content">Content: <span ng-bind-html="post.Content"></span></li>
           <textarea class="editTextBox" name="editPost" cols="36" rows="8"></textarea>
           <button
             class="deleteButton"

@@ -2,6 +2,7 @@
     'use strict';
 
     export interface ITreefortScope extends ng.IScope {
-
+        posts: Post[];
+        error: string;
     }
 }
