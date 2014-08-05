@@ -9,13 +9,20 @@ module Treefort {
             return [
                 "$scope",
                 "PostIO",
+                "$log",
                 FrontpageController
             ]
         }
 
-        constructor(private $scope: ITreefortScope, private PostIO: PostIO) {
+        constructor(
+            private $scope: ITreefortScope,
+            private PostIO: PostIO,
+            private $log: ng.ILogService) {
+
             //wire up functions to be called from view
             $scope.publish = (c) => this.publish(c);
+            $scope.deletePost = (id) => this.deletePost(id);
+
             //anon functions fix scoping issues 
             //eg. this.PostIO is undefined because function is being called from the class closure
 
@@ -31,6 +38,24 @@ module Treefort {
             this.PostIO.createPost(
                 { Id: "", Content: content, AuthorId: "5" },
                 (p, e) => this.onPublished(p, e));
+        }
+
+        deletePost(id: string): void {
+            this.$log.info("Deleting post with id of " + id);
+            this.PostIO.deletePost(id, (e) => this.onDeletedPost(id, e));
+        }
+
+        onDeletedPost(id: string, error?: any): void {
+            if (error) 
+                this.onError(error);
+
+            var indexToRemove = 0;
+            this.$scope.posts.forEach((post, index) => {
+                if (post.Id == id)
+                    indexToRemove = index;
+            });
+
+            this.$scope.posts.splice(indexToRemove, 1);
         }
 
         onPublished(post?: Post, error?: any) {

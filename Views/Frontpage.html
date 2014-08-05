@@ -20,24 +20,22 @@
 
     <section id="postList">
       <div class="post" ng-repeat="post in posts">
-        <div data-post-id="{{post.Id}}">
-          <ul>
-            <li>Id: {{post.Id}}</li>
-            <li>AuthorId: {{post.AuthorId}}</li>
-            <!-- angular will escape any html characters that go through {{ }} 
-            using ng-bind-html instead -->
-            <li class="content">Content: <span ng-bind-html="post.Content"></span></li>
-          </ul>
-          <textarea class="editTextBox" name="editPost" cols="36" rows="8"></textarea>
-          <button
-            class="deleteButton"
-            ng-click="deletePost(post.id)">
-            Delete</button>
-          <button
-            class="editButton"
-            ng-click="startPostEdit(post.id)">
-            Edit</button>
-        </div>
+        <ul>
+          <li>Id: {{post.Id}}</li>
+          <li>AuthorId: {{post.AuthorId}}</li>
+          <!-- angular will escape any html characters that go through {{ }} 
+          using ng-bind-html instead -->
+          <li class="content">Content: <span ng-bind-html="post.Content"></span></li>
+        </ul>
+        <textarea class="editTextBox" name="editPost" cols="36" rows="8"></textarea>
+        <button
+          class="deleteButton"
+          ng-click="deletePost(post.Id)">
+          Delete</button>
+        <button
+          class="editButton"
+          ng-click="startPostEdit(post.Id)">
+          Edit</button>
       </div>
     </section>
   </div>
