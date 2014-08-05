@@ -2,72 +2,42 @@
 
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Treefort</title>
-    <link rel="stylesheet" href="app.css" type="text/css" />
-    <link rel="stylesheet" href="preloader.css" type="text/css" />
+  <meta charset="utf-8" />
+  <title>Treefort</title>
+  <link rel="stylesheet" href="styles/app.css" type="text/css" />
+  <link rel="stylesheet" href="styles/preloader.css" type="text/css" />
 </head>
-<body>
-    <header>
-        <div id="headerContent">
-            <div class="logo">Treefort</div>
-            <div class="sublogo">the paper hat community</div>
-        </div>
-    </header>
-
-    <!-- Pages -->
-    <section id="frontpage">
-        <h3>Frontpage</h3>
-        <textarea name="newPost" cols="48" rows="3"></textarea>
-        <button onclick="treefort.postUI.CreatePost()">Publish</button>
-        <ul id="postList"></ul>
-
-    </section>
-
-    <section id="CreateAccount">
-        <h3>Create account</h3>
-    </section>
-    <!-- END Pages -->
-
-    <!-- UI Components -->
-    <div class="overlay"></div>
-    <div class="modal">
-        <h4>Greetings, test subject!</h4>
-        <ul>
-            <li>Data gets wipe frequently, consider what you post to be temporary.</li>
-            <li>At times the app may not work as intended, or at all.</li>
-            <li>File all issues and complaints in the box at the door,
-                they will then <b>promptly</b> be ignored.
-            </li>
-        </ul>
-        
-        <div class="signature">
-            Cheers,
-            <br />
-            Sam N. W.
-        </div>
-        <button class="button" onclick="toggleNotice(false)">Mmmk</button>
+<body ng-app="Treefort" ng-controller="MainController">
+  <header>
+    <div id="headerContent">
+      <div class="logo">Treefort</div>
+      <div class="sublogo">the paper hat community</div>
     </div>
+  </header>
 
-    <div class="loaderBar">
-        Hold on to your potatos, I'ma loader'n it
-        <div id="outer-barG">
-            <div id="front-barG" class="bar-animationG">
-                <div id="barG_1" class="bar-lineG">
-                </div>
-                <div id="barG_2" class="bar-lineG">
-                </div>
-                <div id="barG_3" class="bar-lineG">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END UI Components -->
+  <div class="animate-show" ng-show="showNotice">
+     <ng-include src="'Views/ModalDialogue.html'" onload="onNoticeLoaded()"></ng-include>
+  </div>
 
-    <!-- Scripts load up here -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src='//cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
-    <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js'></script>
-    <script src="app.js"></script>
+  <!-- Angular view -->
+  <div ng-view></div>
+
+  <!-- Scripts load down here -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js'></script>
+  <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-route.js'></script>
+  <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-sanitize.js'></script>
+  <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-animate.js'></script>
+  <script src='//cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+
+  <!-- Eventually this will all be compiled into one minified file-->
+  <script src="Scripts/Models/Post.js"></script>
+  <script src="Scripts/Models/PostVM.js"></script>
+  <script src="Scripts/Models/User.js"></script>
+  <script src="Scripts/Services/PostIO.js"></script>
+  <script src="Scripts/Controllers/MainController.js"></script>
+  <script src="Scripts/Controllers/FrontpageController.js"></script>
+  <script src="Scripts/app.js"></script>
+
 </body>
 </html>

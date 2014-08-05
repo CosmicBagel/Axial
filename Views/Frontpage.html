@@ -1,0 +1,47 @@
+﻿<section id="frontpage">
+  <h3>Frontpage</h3>
+  <div ng-include="'Views/LoaderBar.html'" ng-hide="posts || error"></div>
+  <div id="error" ng-show="error">{{error}}</div>
+
+  <div ng-show="posts">
+    <form 
+      name="publishPost"
+      ng-submit="publish(newPostContent)">
+      <textarea
+        name="newPost"
+        cols="48" rows="3"
+        placeholder="Write a new post"
+        ng-model="newPostContent"
+        ng-disabled="publishing"
+        required>
+      </textarea>
+      <input type="submit" value="Publish" ng-disabled="publishing" />
+    </form>
+
+    <section id="postList">
+      <div class="post" ng-repeat="post in posts">
+        <ul>
+          <li>Id: {{post.Id}}</li>
+          <li>AuthorId: {{post.AuthorId}}</li>
+          <!-- angular will escape any html characters that go through {{ }} 
+          using ng-bind-html instead -->
+          <li class="content" ng-hide="post.Editing">Content: <span ng-bind-html="post.Content"></span></li>
+        </ul>
+        <textarea 
+          class="editTextBox" name="editPost" 
+          cols="36" rows="8" ng-show="post.Editing"
+          ng-model="post.Content">
+        </textarea>
+        <button
+          class="deleteButton"
+          ng-click="deletePost($index)"
+          ng-hide="post.Editing">
+          Delete</button>
+        <button
+          class="editButton"
+          ng-click="post.Editing ? finishPostEdit(post) : startPostEdit(post)">
+          {{post.Editing ? "Finish" : "Edit"}}</button>
+      </div>
+    </section>
+  </div>
+</section>

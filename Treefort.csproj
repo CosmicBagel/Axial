@@ -17,9 +17,17 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="app.css" />
+    <TypeScriptCompile Include="Scripts\typings\_all.ts" />
+    <TypeScriptCompile Include="Scripts\Interfaces\ITreefortScope.ts" />
+    <TypeScriptCompile Include="Scripts\Models\Post.ts" />
+    <TypeScriptCompile Include="Scripts\Models\User.ts" />
+    <TypeScriptCompile Include="Scripts\Models\PostVM.ts" />
+    <TypeScriptCompile Include="Scripts\Controllers\MainController.ts" />
+    <Content Include="Styles\app.css" />
+    <TypeScriptCompile Include="Scripts\app.ts" />
     <Content Include="index.html" />
-    <Content Include="preloader.css" />
+    <TypeScriptCompile Include="Scripts\Controllers\FrontpageController.ts" />
+    <Content Include="Styles\preloader.css" />
     <Content Include="Scripts\typings\angularfire\angularfire.d.ts" />
     <Content Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <Content Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
@@ -32,11 +40,17 @@
     <Content Include="Scripts\typings\firebase\firebase-simplelogin.d.ts" />
     <Content Include="Scripts\typings\firebase\firebase.d.ts" />
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\Services\PostIO.ts" />
+    <Content Include="Views\404.html" />
+    <Content Include="Views\CreateAccount.html" />
+    <Content Include="Views\Frontpage.html" />
+    <Content Include="Views\LoaderBar.html" />
+    <Content Include="Views\ModalDialogue.html" />
     <Content Include="WE-Markdown.css" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="Scripts\app_old.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
