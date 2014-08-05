@@ -25,17 +25,22 @@
           <li>AuthorId: {{post.AuthorId}}</li>
           <!-- angular will escape any html characters that go through {{ }} 
           using ng-bind-html instead -->
-          <li class="content">Content: <span ng-bind-html="post.Content"></span></li>
+          <li class="content" ng-hide="post.Editing">Content: <span ng-bind-html="post.Content"></span></li>
         </ul>
-        <textarea class="editTextBox" name="editPost" cols="36" rows="8"></textarea>
+        <textarea 
+          class="editTextBox" name="editPost" 
+          cols="36" rows="8" ng-show="post.Editing"
+          ng-model="post.Content">
+        </textarea>
         <button
           class="deleteButton"
-          ng-click="deletePost(post)">
+          ng-click="deletePost($index)"
+          ng-hide="post.Editing">
           Delete</button>
         <button
           class="editButton"
-          ng-click="startPostEdit(post)">
-          Edit</button>
+          ng-click="post.Editing ? finishPostEdit(post) : startPostEdit(post)">
+          {{post.Editing ? "Finish" : "Edit"}}</button>
       </div>
     </section>
   </div>

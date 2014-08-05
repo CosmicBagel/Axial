@@ -21,7 +21,9 @@ module Treefort {
 
             //wire up functions to be called from view
             $scope.publish = (c) => this.publish(c);
-            $scope.deletePost = (id) => this.deletePost(id);
+            $scope.deletePost = (i) => this.deletePost(i);
+            $scope.startPostEdit = (p) => this.startPostEdit(p);
+            $scope.finishPostEdit = (p) => this.finishPostEdit(p);
 
             //anon functions fix scoping issues 
             //eg. this.PostIO is undefined because function is being called from the class closure
@@ -39,32 +41,37 @@ module Treefort {
                 (p, e) => this.onPublished(p, e));
         }
 
-        deletePost(post: Post): void {
-            this.$log.info("Deleting post with id of " + post.Id);
-            this.PostIO.deletePost(post,
-                (p, e) => this.onDeletedPost(p, e));
+        startPostEdit(post: PostVM): void {
+            this.$log.info("editing post with id of " + post.Id);
+            post.Editing = true;
         }
 
-        onDeletedPost(post?: Post, error?: any): void {
+        finishPostEdit(post: PostVM): void {
+            post.Editing = false;
+        }
+
+        deletePost(viewIndex: number): void {
+            var post: PostVM = this.$scope.posts[viewIndex];
+            this.$log.info("Deleting post with id of " + post.Id);
+            this.PostIO.deletePost(post,
+                (p, e) => this.onDeletedPost(viewIndex, p, e));
+        }
+
+        onDeletedPost(viewIndex: number, post: Post, error: any): void {
             if (error) 
                 this.onError(error);
 
             if (post) {
-                var indexToRemove = 0;
-                this.$scope.posts.forEach((p, i) => {
-                    if (p == post)
-                        indexToRemove = i;
-                });
-                this.$scope.posts.splice(indexToRemove, 1);
+                this.$scope.posts.splice(viewIndex, 1);
             }
         }
 
-        onPublished(post?: Post, error?: any) {
+        onPublished(post: Post, error: any) {
             this.$scope.publishing = false;
             this.$scope.newPostContent = "";
-
+            
             if (post)
-                this.$scope.posts.unshift(post);
+                this.$scope.posts.unshift( new PostVM(post) );
 
             if (error)
                 this.onError(error);
@@ -75,8 +82,15 @@ module Treefort {
                 (p) => this.onPosts(p), () => this.onError());
         }
 
-        onPosts(posts: Post[]) : void {
-            this.$scope.posts = posts.reverse();
+        onPosts(posts: Post[]): void {
+            var postVMs: PostVM[] = [];
+
+            //create the postVMs, also reverse the order so newest is at top
+            posts.reverse().forEach((p) => {
+                postVMs.push(new PostVM(p));
+            });
+
+            this.$scope.posts = postVMs;
         }
 
         onError(Error?: any): void {
