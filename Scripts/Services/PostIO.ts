@@ -26,28 +26,29 @@ module Treefort {
 
             //we'll preapare the data instead of just passing the dataSnapshot back
             try {
-                postsQuery.once("value", (dataSnapshot: IFirebaseDataSnapshot) => {
-
-                    var posts: Post[] = [];
-                    dataSnapshot.forEach(p => {
-                        posts.push({
-                            Id: p.name(),
-                            Content: this.$sce.trustAsHtml(p.child("Content").val()),
-                            AuthorId: p.child("AuthorId").val()
-                        });
-                        return false;
-                    });
-
-
+                postsQuery.once(
+                    "value",
+                    (dataSnapshot: IFirebaseDataSnapshot) => {
+                        var posts: Post[] = [];
+                        dataSnapshot.forEach(p => {
+                            posts.push({
+                                Id: p.name(),
+                                Content: this.$sce.trustAsHtml(p.child("Content").val()),
+                                AuthorId: p.child("AuthorId").val()
+                            });
+                            return false;
+                        }
+                    );
 
                     //triggering digest since scope will be updated 
                     //by the controller using this service
                     onSucess(posts);
                     this.$rootScope.$digest();
-                }, () => {
+                    }, () => {
                         onFailure();
                         this.$rootScope.$digest();
-                    });
+                    }
+                );
             }
             catch (error) {
                 onFailure(error);
@@ -55,27 +56,40 @@ module Treefort {
             }
         }
 
-        createPost(post: Post, onComplete: (post: Post, error: any) => void): void {
+        createPost(post: Post, onComplete: (post: Post, error?: any) => void): void {
             try {
                 var createdPost = this.postsRoot.push(
                     { Content: post.Content, AuthorID: post.AuthorId },
-                    (e) => { 
-                        if (createdPost != null) {
-                            onComplete(
-                                {
-                                    Id: createdPost.name(),
-                                    Content: this.$sce.trustAsHtml(post.Content),
-                                    AuthorId: post.AuthorId
-                                }, e);
-                            this.$rootScope.$digest();
-                        }
-                        else
-                            throw "Post failed to create " + e;
+                    (e) => {
+                        if (e != null || createdPost == null)
+                            throw "An error occured while creating a post: " + e;
+
+                        onComplete({
+                            Id: createdPost.name(),
+                            Content: this.$sce.trustAsHtml(post.Content),
+                            AuthorId: post.AuthorId
+                        });
+                        this.$rootScope.$digest();
                     });
             }
-            catch (error)
-            {
+            catch (error) {
                 onComplete(null, error);
+                this.$rootScope.$digest();
+            }
+        }
+
+        deletePost(id: string, onComplete: (error?: any) => void): void {
+            try {
+                this.postsRoot.child(id).remove((e) => {
+                    if (e != null)
+                        throw "An error occured: " + e;
+
+                    onComplete();
+                    this.$rootScope.$digest();
+                });
+            }
+            catch (error) {
+                onComplete(error);
                 this.$rootScope.$digest();
             }
         }
