@@ -3,9 +3,11 @@
 module Treefort {
     'use strict';
 
-    var app = angular.module("Treefort", ["ngRoute", "ngSanitize"])
+    var app = angular.module("Treefort", ["ngRoute", "ngSanitize", "ngAnimate"])
         .service("PostIO", PostIO.prototype.injection())
-        .controller('FrontpageController', FrontpageController.prototype.injection());        
+        .controller('MainController', MainController.prototype.injection())
+        .controller('FrontpageController', FrontpageController.prototype.injection())
+        ;        
 
     app.config(function ($routeProvider : ng.route.IRouteProvider) {
         $routeProvider

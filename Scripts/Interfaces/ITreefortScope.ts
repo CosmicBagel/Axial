@@ -12,8 +12,10 @@
         deletePost: Function;
         startPostEdit: Function;
         finishPostEdit: Function;
+        onNoticeLoaded: Function;
 
         //state
         publishing: boolean;
+        showNotice: boolean;
     }
 }

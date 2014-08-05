@@ -14,5 +14,7 @@
             <br />
     Sam N. W.
   </div>
-  <button class="button" onclick="toggleNotice(false)">Mmmk</button>
+  <!-- We get a child scope that doesn't persist back to the parent
+   to remedy this we'll use the $parent object, not the best tactic, but works -->
+  <button class="button" ng-click="$parent.showNotice = false">Mmmk</button>
 </div>

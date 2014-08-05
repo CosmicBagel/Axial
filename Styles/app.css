@@ -63,21 +63,20 @@ section {
         margin-bottom: 15px;
     }
 
-  #postList img,iframe {
-      max-width: 355px;
-  }
+#postList img, #postList iframe {
+    max-width: 355px;
+}
 
+#postList ul {
+    list-style-type: none;
+}
 
-  #postList ul {
-      list-style-type: none;
-  }
-
-  #postList .post,li {
-      border: 3px solid #747371;
-      border-radius: 5px;
-      margin-bottom: 5px;
-      padding: 5px;
-  }
+#postList .post, #postList li {
+    border: 3px solid #747371;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
 
 #error {
  width: 100%;
@@ -109,7 +108,6 @@ section {
     height: 100%;
     z-index: 10;
     background-color: rgba(0,0,0,0.5); /*dim the background*/
-    display: none;
 }
 
 .modal {
@@ -124,7 +122,6 @@ section {
     text-align: left;
     padding: 15px;
     z-index: 11; /* 1px higher than the overlay layer */
-    display: none;
 }
 
 .button {
@@ -154,6 +151,16 @@ section {
     margin-top: 15px;
 }
 
-.loaderBar {
-    
+.animate-show {
+  -webkit-transition:all linear 0.5s;
+  -moz-transition:all linear 0.5s;
+  -ms-transition:all linear 0.5s;
+  -o-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+
+  opacity: 1;
+}
+
+.animate-show.ng-hide {
+  opacity:0;
 }

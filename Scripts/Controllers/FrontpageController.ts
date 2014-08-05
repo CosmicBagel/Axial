@@ -11,7 +11,7 @@ module Treefort {
                 "PostIO",
                 "$log",
                 FrontpageController
-            ]
+            ];
         }
 
         constructor(
