@@ -33,24 +33,24 @@ module Treefort {
                     (dataSnapshot: IFirebaseDataSnapshot) => {
                         var posts: Post[] = [];
                         dataSnapshot.forEach(p => {
-                            posts.push({
-                                Id: p.name(),
-                                Content: this.$sce.trustAsHtml(p.child("Content").val()),
-                                AuthorId: p.child("AuthorId").val()
-                            });
+                            posts.push(new Post(
+                                p.name(),
+                                this.$sce.trustAsHtml(p.child("Content").val()),
+                                p.child("AuthorId").val()
+                                ));
                             return false;
                         }
-                    );
+                            );
 
-                    //triggering digest since scope will be updated 
-                    //by the controller using this service
-                    onSucess(posts);
-                    this.$rootScope.$digest();
+                        //triggering digest since scope will be updated 
+                        //by the controller using this service
+                        onSucess(posts);
+                        this.$rootScope.$digest();
                     }, () => {
                         onFailure();
                         this.$rootScope.$digest();
                     }
-                );
+                    );
             }
             catch (error) {
                 onFailure(error);
@@ -66,11 +66,11 @@ module Treefort {
                         if (e || !createdPost)
                             throw "An error occured while creating a post: " + e;
 
-                        onComplete({
-                            Id: createdPost.name(),
-                            Content: this.$sce.trustAsHtml(post.Content),
-                            AuthorId: post.AuthorId
-                        });
+                        onComplete(new Post(
+                            createdPost.name(),
+                            this.$sce.trustAsHtml(post.Content),
+                            post.AuthorId
+                            ));
                         this.$rootScope.$digest();
                     });
             }
@@ -80,27 +80,31 @@ module Treefort {
             }
         }
 
-        deletePost(post: Post, onComplete: (post?: Post, error?: any) => void): void {
+        deletePost(post: Post, onComplete: (error?: any) => void): void {
             try {
                 this.postsRoot.child(post.Id).remove((e) => {
                     if (e)
                         throw "An error occured: " + e;
 
-                    onComplete(post);
+                    onComplete();
                     this.$rootScope.$digest();
                 });
             }
             catch (error) {
-                onComplete(null, error);
+                onComplete(error);
                 this.$rootScope.$digest();
             }
         }
 
         updatePost(post: Post, onComplete: (post?: Post, error?: any) => void): void {
             try {
-                this.postsRoot.child(post.Id).set(post, (e) => {
+                this.postsRoot.child(post.Id).set( {
+                    //the content will be marked trusted so we need to unwrap it
+                    Content: this.$sce.getTrustedHtml(post.Content),
+                    AuthorId: post.AuthorId },
+                    (e) => {
                     if (e)
-                        throw "An erro occured while editing a post: " + e;
+                        throw "An error occured while editing a post: " + e;
 
                     onComplete(post);
                     this.$rootScope.$digest();
@@ -108,7 +112,7 @@ module Treefort {
             }
             catch (error) {
                 onComplete(null, error);
-                this.$rootScope.$digest();
+                //this.$rootScope.$digest();
             }
         }
     }

@@ -41,29 +41,36 @@ module Treefort {
                 (p, e) => this.onPublished(p, e));
         }
 
-        startPostEdit(post: PostVM): void {
-            this.$log.info("editing post with id of " + post.Id);
-            post.Editing = true;
+        startPostEdit(postVM: PostVM): void {
+            this.$log.info("editing post with id of " + postVM.Id);
+            postVM.Editing = true;
         }
 
-        finishPostEdit(post: PostVM): void {
-            post.Editing = false;
+        finishPostEdit(postVM: PostVM): void {
+            postVM.PublishingEdit = true;
+
+            this.PostIO.updatePost(postVM, (post, error) => {
+                if (error)
+                    this.onError(error);
+
+                postVM.Editing = false;
+                postVM.PublishingEdit = false;
+            });
+            
         }
 
         deletePost(viewIndex: number): void {
             var post: PostVM = this.$scope.posts[viewIndex];
             this.$log.info("Deleting post with id of " + post.Id);
             this.PostIO.deletePost(post,
-                (p, e) => this.onDeletedPost(viewIndex, p, e));
+                (e) => this.onDeletedPost(viewIndex, e));
         }
 
-        onDeletedPost(viewIndex: number, post: Post, error: any): void {
+        onDeletedPost(viewIndex: number, error: any): void {
             if (error) 
                 this.onError(error);
-
-            if (post) {
+            else
                 this.$scope.posts.splice(viewIndex, 1);
-            }
         }
 
         onPublished(post: Post, error: any) {
@@ -95,7 +102,7 @@ module Treefort {
 
         onError(Error?: any): void {
             if (Error)
-                this.$scope.error = Error;
+                this.$scope.error = Error.toString();
             else
                 this.$scope.error = "An error occured, try refreshing the page.";
         }
