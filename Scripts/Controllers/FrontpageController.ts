@@ -28,8 +28,7 @@ module Treefort {
 
             $scope.publishing = false;
 
-            PostIO.getPosts(20,
-                (p) => this.onPosts(p), () => this.onError());
+            this.getPosts();
         }
 
         publish(content: string): void {
@@ -40,22 +39,24 @@ module Treefort {
                 (p, e) => this.onPublished(p, e));
         }
 
-        deletePost(id: string): void {
-            this.$log.info("Deleting post with id of " + id);
-            this.PostIO.deletePost(id, (e) => this.onDeletedPost(id, e));
+        deletePost(post: Post): void {
+            this.$log.info("Deleting post with id of " + post.Id);
+            this.PostIO.deletePost(post,
+                (p, e) => this.onDeletedPost(p, e));
         }
 
-        onDeletedPost(id: string, error?: any): void {
+        onDeletedPost(post?: Post, error?: any): void {
             if (error) 
                 this.onError(error);
 
-            var indexToRemove = 0;
-            this.$scope.posts.forEach((post, index) => {
-                if (post.Id == id)
-                    indexToRemove = index;
-            });
-
-            this.$scope.posts.splice(indexToRemove, 1);
+            if (post) {
+                var indexToRemove = 0;
+                this.$scope.posts.forEach((p, i) => {
+                    if (p == post)
+                        indexToRemove = i;
+                });
+                this.$scope.posts.splice(indexToRemove, 1);
+            }
         }
 
         onPublished(post?: Post, error?: any) {
@@ -67,6 +68,11 @@ module Treefort {
 
             if (error)
                 this.onError(error);
+        }
+
+        getPosts(): void {
+            this.PostIO.getPosts(20,
+                (p) => this.onPosts(p), () => this.onError());
         }
 
         onPosts(posts: Post[]) : void {

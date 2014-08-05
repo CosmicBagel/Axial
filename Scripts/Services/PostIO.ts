@@ -21,7 +21,9 @@ module Treefort {
             this.postsRoot = this.fbRoot.child("posts");
         }
 
-        getPosts(maxCount: number, onSucess: (posts: Post[]) => void, onFailure: (Error?: any) => void) {
+        getPosts(maxCount: number, onSucess: (posts: Post[]) => void,
+            onFailure: (Error?: any) => void) {
+
             var postsQuery = this.postsRoot.limit(maxCount);
 
             //we'll preapare the data instead of just passing the dataSnapshot back
@@ -78,20 +80,22 @@ module Treefort {
             }
         }
 
-        deletePost(id: string, onComplete: (error?: any) => void): void {
+        deletePost(post: Post, onComplete: (post?: Post, error?: any) => void): void {
             try {
-                this.postsRoot.child(id).remove((e) => {
+                this.postsRoot.child(post.Id).remove((e) => {
                     if (e != null)
                         throw "An error occured: " + e;
 
-                    onComplete();
+                    onComplete(post);
                     this.$rootScope.$digest();
                 });
             }
             catch (error) {
-                onComplete(error);
+                onComplete(null, error);
                 this.$rootScope.$digest();
             }
         }
+
+        //updatePost(post: Post
     }
 } 
