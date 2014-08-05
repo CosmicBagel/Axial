@@ -63,7 +63,7 @@ module Treefort {
                 var createdPost = this.postsRoot.push(
                     { Content: post.Content, AuthorId: post.AuthorId },
                     (e) => {
-                        if (e != null || createdPost == null)
+                        if (e || !createdPost)
                             throw "An error occured while creating a post: " + e;
 
                         onComplete({
@@ -83,7 +83,7 @@ module Treefort {
         deletePost(post: Post, onComplete: (post?: Post, error?: any) => void): void {
             try {
                 this.postsRoot.child(post.Id).remove((e) => {
-                    if (e != null)
+                    if (e)
                         throw "An error occured: " + e;
 
                     onComplete(post);
@@ -96,6 +96,20 @@ module Treefort {
             }
         }
 
-        //updatePost(post: Post
+        updatePost(post: Post, onComplete: (post?: Post, error?: any) => void): void {
+            try {
+                this.postsRoot.child(post.Id).set(post, (e) => {
+                    if (e)
+                        throw "An erro occured while editing a post: " + e;
+
+                    onComplete(post);
+                    this.$rootScope.$digest();
+                });
+            }
+            catch (error) {
+                onComplete(null, error);
+                this.$rootScope.$digest();
+            }
+        }
     }
 } 
