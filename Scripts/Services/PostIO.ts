@@ -59,7 +59,7 @@ module Treefort {
         createPost(post: Post, onComplete: (post: Post, error?: any) => void): void {
             try {
                 var createdPost = this.postsRoot.push(
-                    { Content: post.Content, AuthorID: post.AuthorId },
+                    { Content: post.Content, AuthorId: post.AuthorId },
                     (e) => {
                         if (e != null || createdPost == null)
                             throw "An error occured while creating a post: " + e;
