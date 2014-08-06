@@ -16,7 +16,7 @@
 
             //wait for some UI elments to load before we kick off
             $scope.onNoticeLoaded = () => {
-                $scope.showNotice = true;
+                $scope.showNotice = false;
                 this.checkIfNewUser();
             };
         }
