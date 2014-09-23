@@ -3,6 +3,9 @@
 *.js
 *.js.map
 
+## None of that Cloud9 nonsense
+/.c9
+
 ## User specific IntelliJ Files
 .idea/dictionaries
 .idea/workspace.xml
