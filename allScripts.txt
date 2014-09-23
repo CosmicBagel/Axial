@@ -1,0 +1,8 @@
+Scripts/app.ts
+Scripts/Services/PostIO.ts
+Scripts/Models/User.ts
+Scripts/Models/PostVM.ts
+Scripts/Models/Post.ts
+Scripts/Interfaces/ITreefortScope.ts
+Scripts/Controllers/MainController.ts
+Scripts/Controllers/FrontpageController.ts
