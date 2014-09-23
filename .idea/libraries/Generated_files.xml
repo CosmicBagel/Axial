@@ -7,6 +7,7 @@
         <item url="file://$PROJECT_DIR$/Scripts/Models/PostVM.js" />
         <item url="file://$PROJECT_DIR$/Scripts/Models/Post.js" />
         <item url="file://$PROJECT_DIR$/Scripts/app.js" />
+        <item url="file://$PROJECT_DIR$/Scripts/app.js" />
         <item url="file://$PROJECT_DIR$/Scripts/Controllers/FrontpageController.js" />
         <item url="file://$PROJECT_DIR$/Scripts/app_old.js" />
         <item url="file://$PROJECT_DIR$/Scripts/Interfaces/ITreefortScope.js" />
@@ -16,9 +17,11 @@
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/Scripts/all.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/app_old.js" />
       <root url="file://$PROJECT_DIR$/Scripts/Controllers/MainController.js" />
       <root url="file://$PROJECT_DIR$/Scripts/Models/User.js" />
       <root url="file://$PROJECT_DIR$/Scripts/Models/PostVM.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/app.js" />
       <root url="file://$PROJECT_DIR$/Scripts/Models/Post.js" />
       <root url="file://$PROJECT_DIR$/Scripts/app.js" />
       <root url="file://$PROJECT_DIR$/Scripts/app_old.js" />
