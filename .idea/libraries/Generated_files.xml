@@ -1,0 +1,33 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/Scripts/Controllers/MainController.js" />
+        <item url="file://$PROJECT_DIR$/Scripts/Models/User.js" />
+        <item url="file://$PROJECT_DIR$/Scripts/Models/PostVM.js" />
+        <item url="file://$PROJECT_DIR$/Scripts/Models/Post.js" />
+        <item url="file://$PROJECT_DIR$/Scripts/app.js" />
+        <item url="file://$PROJECT_DIR$/Scripts/Controllers/FrontpageController.js" />
+        <item url="file://$PROJECT_DIR$/Scripts/app_old.js" />
+        <item url="file://$PROJECT_DIR$/Scripts/Interfaces/ITreefortScope.js" />
+        <item url="file://$PROJECT_DIR$/Scripts/typings/_all.js" />
+        <item url="file://$PROJECT_DIR$/Scripts/Services/PostIO.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/Scripts/all.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/Controllers/MainController.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/Models/User.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/Models/PostVM.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/Models/Post.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/app.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/app_old.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/Controllers/FrontpageController.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/Interfaces/ITreefortScope.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/typings/_all.js" />
+      <root url="file://$PROJECT_DIR$/Scripts/Services/PostIO.js" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
