@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/cosmicbagel/treefort.png?label=ready&title=Ready)](https://waffle.io/cosmicbagel/treefort)
 Treefort
 =====
 
